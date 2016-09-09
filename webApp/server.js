@@ -59,8 +59,25 @@ user.post('/', function(req, res) {
 	});
 });
 
+user.post('/new', function(req, res) {
+	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+		if (err != null) {
+			res.send('Issue connecting');
+		} else {
+			var collection = db.collection('users');
 
+			console.log(req.body);
 
-
+			collection.insertMany([req.body], function(err, result) {
+				if (err) {
+					res.send("Nooooo");
+				} else {
+					res.send("posted request");
+					db.close();
+				}
+			});
+		}
+	});
+});
 
 app.listen(3000);

@@ -34,5 +34,9 @@
 			alert(res);
 			window.location = '/default.html';
 		});
-	})
+	});
+
+	// document.getElementById("newAccount").addEventListener("click", function(e) {
+
+	// })
 })();
