@@ -27,8 +27,11 @@
 	}
 
 	document.getElementById("login").addEventListener("click", function(e) {
-		httpPost("/user", { username: "Rebecca", password: "1234" }, function() {
-			alert("This worked!");
+		var user_input = document.getElementById("username").value;
+		var password_input = document.getElementById("password").value;
+
+		httpPost("/user", { username: user_input, password: password_input }, function(res) {
+			alert(res);
 			window.location = '/default.html';
 		});
 	})
