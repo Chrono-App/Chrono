@@ -1,0 +1,22 @@
+.day {
+	width: 10%;
+	color: black;
+	border: 1px solid black;
+	height: 100px;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	background-color: aliceblue;
+}
+
+.time {
+	height: 100px;
+	margin: 0;
+	padding: 0;
+}
+
+.timeSlot {
+	margin: 0;
+	padding: 0;
+}
+

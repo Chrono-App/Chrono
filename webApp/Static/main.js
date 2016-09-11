@@ -36,6 +36,17 @@
 		});
 	});
 
+	var calendar = document.getElementById("calendar");
+
+	var days = [ "Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+
+	days.forEach(function(day) {
+		var dayElem = document.createElement("div");
+		dayElem.className = "day";
+		calendar.appendChild(dayElem);
+	})
+	
+
 	// document.getElementById("newAccount").addEventListener("click", function(e) {
 
 	// })
