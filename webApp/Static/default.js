@@ -45,6 +45,13 @@
 			calendar.appendChild(row);
 		}
 	}
+
+	// document.getElementById("create_event").addEventListener("click", function() {
+	// 	console.log("hi");
+	// 	console.log(Chrono);
+	// 	var event = this.eventsview();
+	// 	console.log(event);
+	// });
 	
 
 	renderCalendar();

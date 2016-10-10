@@ -26,6 +26,7 @@ Chrono.eventsmodel.prototype.fetch = function(success, error) {
 	this.time = "now";
 	this.note = "Hiiiiii";
 	this.notify(Chrono.eventsmodel.events.FETCH_EVENT);
+	console.log(this);
 };
 
 Chrono.eventsmodel.prototype.notify = function(event_type) {
