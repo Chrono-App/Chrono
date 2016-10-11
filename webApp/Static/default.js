@@ -32,7 +32,6 @@
 			row1.appendChild(dayElem);
 		});
 
-
 		for (var i = 0; i < 23; i++) {
 			var row = document.createElement("div");
 			row.className = "timeSlot";
@@ -52,6 +51,58 @@
 	// 	var event = this.eventsview();
 	// 	console.log(event);
 	// });
+
+	document.getElementById("create_event").addEventListener("click", function() {
+		//1. send dummy data to database
+		var event = new Chrono.eventsview();
+		event.model.fetch(function() {
+			console.log(event.title);
+			console.log(event.name);
+
+		}, null);
+
+		//2. call a function to changes the view
+		//event.render();
+		//console.log(event);
+		//var event = this.eventsview();
+		//console.log(event);
+	});
+
+	// user.post('/new', function(req, res) {
+	// 	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+	// 		if (err != null) {
+	// 			res.send('Issue connecting');
+	// 		} else {
+	// 			var collection = db.collection('users');
+
+	// 			console.log(req.body);
+
+	// 			collection.insertMany([req.body], function(err, result) {
+	// 				if (err) {
+	// 					res.send("Nooooo");
+	// 				} else {
+	// 					res.send("posted request");
+	// 					db.close();
+	// 				}
+	// 			});
+	// 		}
+	// 	});
+	});
+
+
+
+	//take the data that was passed in and then dom manipulate to show on the calendar
+	function addEventToView(data){
+		//get day
+
+		//get time
+
+		//get title
+
+		//add to blue box
+
+
+	}
 	
 
 	renderCalendar();
