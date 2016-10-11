@@ -6,24 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Page</title>
     <link href="../Bootstrap/CSS/bootstrap.min.css" rel="stylesheet">
+    <link href="../Stylesheets/styles.css" rel="stylesheet">
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   </head>
   <body>
-    <h1 class="text-center">Basic Web App :)</h1>
-    <p>Username:</p>
-    <input id="username" type="text" />
-    <p>Password:</p>
-    <input id="password" type="text" />
-    <br />
-    <br />
-    <button class="btn btn-primary" id="login">Log In</button>
-    <a href="newUser.html"><button class="btn btn-primary" id="createAccount">New User</button></a>
+    <h1 class="text-center">Welcome to Chrono!</h1>
+    <div class="login">
+      <p>Username:</p>
+      <input id="username" type="text" />
+      <p>Password:</p>
+      <input id="password" type="text" />
+      <br />
+      <br />
+      <button class="btn btn-primary" id="login">Log In</button>
+      <a href="newUser.html"><button class="btn btn-primary" id="createAccount">New User</button></a>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../Bootstrap/JS/bootstrap.min.js"></script>
-    <script src="Models/events.js"></script>
-    <script src="Views/events.js"></script>
+    <script src="../Models/events.js"></script>
+    <script src="events.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

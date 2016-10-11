@@ -18,5 +18,22 @@
 .timeSlot {
 	margin: 0;
 	padding: 0;
+	line-height: 0.7;
 }
 
+.events {
+	background-color: #ff99cc;
+	position: absolute;
+	width: 150px;
+	height: 100px;
+}
+
+.login {
+	margin-top: 10%;
+	margin-left: 45%;
+}
+
+.calendarView {
+	margin-top: 50px;
+	margin-left: 10%;
+}

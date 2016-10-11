@@ -56,8 +56,8 @@
 		//1. send dummy data to database
 		var event = new Chrono.eventsview();
 		event.model.fetch(function() {
-			console.log(event.model.title);
-			console.log(event.model.note);
+			//console.log(event.model.title);
+			//console.log(event.model.note);
 
 			addEventToView(event.model);
 
@@ -96,10 +96,11 @@
 	//take the data that was passed in and then dom manipulate to show on the calendar
 	 function addEventToView(data){
 	 	//get day
-	 	var event = document.getElementById("event");
+	 	var event = document.getElementById("calendar").firstChild.firstChild;
 
 	 	var newEvent = document.createElement("div");
-	 	newEvent.textContent = data.title;
+	 	newEvent.textContent = data.title + " " + data.note;
+	 	newEvent.className = "events";
 	 	event.appendChild(newEvent);
 
 	 	//get time
