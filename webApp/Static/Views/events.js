@@ -4,6 +4,7 @@ Chrono.eventsview = function() {
 		// create model
 		this.model = new Chrono.eventsmodel();
 		this.model.subscribe(this.onModelUpdate);
+		this.render();
 		// subscribe event
 
 		// fetch!
