@@ -23,8 +23,8 @@ Chrono.eventsmodel.events = {
 Chrono.eventsmodel.prototype.fetch = function(success, error) {
 	//fire callback when fetch fails or succeeds
 	this.title = document.getElementById("eventTitle").value;
-	this.time = document.getElementById("eventTime").time;;
-	this.note = document.getElementById("eventNote").note;;
+	this.time = document.getElementById("eventTime").value;;
+	this.note = document.getElementById("eventNote").value;;
 	this.notify(Chrono.eventsmodel.events.FETCH_EVENT);
 	success();
 	//console.log(this);

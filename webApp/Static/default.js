@@ -99,7 +99,19 @@
 	 	var event = document.getElementById("calendar").firstChild.firstChild;
 
 	 	var newEvent = document.createElement("div");
-	 	newEvent.textContent = data.title + " " + data.note;
+
+	 	var title = document.createElement("p");
+	 	title.textContent = "title: " + data.title;
+	 	var time = document.createElement("p");
+	 	time.textContent = "time: " + data.time;
+	 	var note = document.createElement("p");
+	 	note.textContent = "note: " + data.note;
+
+	 	newEvent.appendChild(title);
+	 	newEvent.appendChild(time);
+	 	newEvent.appendChild(note);
+
+	 	//newEvent.textContent = data.title + "<br />" + data.time + "<br />" + data.note;
 	 	newEvent.className = "events";
 	 	event.appendChild(newEvent);
 

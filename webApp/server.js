@@ -73,9 +73,17 @@ user.post('/new', function(req, res) {
 					res.send("Nooooo");
 				} else {
 					res.send("posted request");
-					db.close();
 				}
 			});
+
+			var userinfo = db.collection(req.body.username).save({ user: req.body.username });
+
+			console.log(req.body.username);
+
+			// TODO: add some test here
+
+			db.close();
+
 		}
 	});
 });
