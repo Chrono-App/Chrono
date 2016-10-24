@@ -59,6 +59,7 @@ user.post('/', function(req, res) {
 	});
 });
 
+// post new username/password
 user.post('/new', function(req, res) {
 	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
 		if (err != null) {
@@ -76,9 +77,64 @@ user.post('/new', function(req, res) {
 				}
 			});
 
-			var userinfo = db.collection(req.body.username).save({ user: req.body.username });
+			var events_collection = db.collection("events");
 
-			console.log(req.body.username);
+			//var userinfo = db.collection(req.body.username);
+			
+			events_collection.save({ user: req.body.username });
+
+			var userid;
+
+			events_collection.find().toArray(function(err, results) {
+				userid = (results[0]._id).toString();
+				console.log(userid);
+				updateCollection();
+				//collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
+			});
+
+
+			function updateCollection() {
+				collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
+			}
+
+			//collection.update({ username: req.body.username }, { $set : { user_id : userid } });
+			// 	// collection.insertMany([results[0]], function(err, result) {
+			// 	// 	console.log(results[0]);
+			// 	// });
+			//});
+
+			// userinfo.find().toArray(function(err, results) {
+			// 	var userid = results[0]._id;
+			// 	console.log(userid);
+
+			// 	console.log(collection);
+
+			// 	collection.update({ username: req.body.username }, { $set : { user_id : "hello" } });
+			// 	// collection.insertMany([results[0]], function(err, result) {
+			// 	// 	console.log(results[0]);
+			// 	// });
+			// });
+
+			//var print = userinfo.find( { user: { $eq: req.body.username } } );
+			//console.log(print);
+			//var userid = userinfo.user;
+
+			//console.log(userid);
+
+			// function(err, cb) {
+			// 	var userinfo = db.collection(req.body.username);
+			// 	userinfo.save({ user: req.body.username });
+			// }
+
+			//console.log(userinfo._id);
+
+			//collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
+
+			//console.log(userinfo._id);
+
+			//collection.insertMany([{ user_id: events_collection._id }]);
+
+			//console.log(userinfo._id);
 
 			// TODO: add some test here
 
@@ -87,5 +143,23 @@ user.post('/new', function(req, res) {
 		}
 	});
 });
+
+user.post('/event', function(req, res) {
+	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+		if (err != null) {
+			res.send('Cannot connect to MongoDB');
+		} else {
+			var collection = db.collection("events");
+
+			collection.insertMany([req.body], function(err, result) {
+				if (err) {
+					res.send("can't post event oh no");
+				} else {
+					res.send("posted request!");
+				}
+			});
+		}
+	})
+})
 
 app.listen(3000);

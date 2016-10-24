@@ -115,12 +115,8 @@
 	 	newEvent.className = "events";
 	 	event.appendChild(newEvent);
 
-	 	//get time
-
-	// 	//get title
-
-	// 	//add to blue box
-
+	 	// post to database
+	 	//httpPost("user/new", { title: title, time: time, note: note}, callback)
 
 	 }
 	
