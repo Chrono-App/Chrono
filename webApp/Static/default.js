@@ -96,22 +96,51 @@
 	//take the data that was passed in and then dom manipulate to show on the calendar
 	 function addEventToView(data){
 	 	//get day
-	 	var event = document.getElementById("calendar").firstChild.firstChild;
+	 	var event;
+
+	 	switch(data.day.toLowerCase()) {
+	 		case 'sunday' :
+	 			event = document.getElementById("calendar").childNodes[2].childNodes[1];
+	 			break;
+	 		case 'monday' :
+	 			event = document.getElementById("calendar").childNodes[2].childNodes[2];
+	 			break;
+	 		case 'tuesday' :
+	 			event = document.getElementById("calendar").childNodes[2].childNodes[3];
+	 			break;
+	 		case 'wednesday' :
+	 			event = document.getElementById("calendar").childNodes[2].childNodes[4];
+	 			break;
+	 		case 'thursday' :
+	 			event = document.getElementById("calendar").childNodes[2].childNodes[5];
+	 			break;
+	 		case 'friday' :
+	 			event = document.getElementById("calendar").childNodes[2].childNodes[6];
+	 			break;
+	 		case 'saturday' :
+	 			event = document.getElementById("calendar").childNodes[2].childNodes[7];
+	 			break;
+	 		default :
+	 			event = document.getElementById("calendar").firstChild.firstChild;
+	 			break;
+	 	}
 
 	 	var newEvent = document.createElement("div");
 
 	 	var title = document.createElement("p");
 	 	title.textContent = "title: " + data.title;
+	 	var day = document.createElement("p");
+	 	day.textContent = "day: " + data.day;
 	 	var time = document.createElement("p");
 	 	time.textContent = "time: " + data.time;
 	 	var note = document.createElement("p");
 	 	note.textContent = "note: " + data.note;
 
 	 	newEvent.appendChild(title);
+	 	newEvent.appendChild(day);
 	 	newEvent.appendChild(time);
 	 	newEvent.appendChild(note);
 
-	 	//newEvent.textContent = data.title + "<br />" + data.time + "<br />" + data.note;
 	 	newEvent.className = "events";
 	 	event.appendChild(newEvent);
 
@@ -119,7 +148,9 @@
 	 	//httpPost("user/new", { title: title, time: time, note: note}, callback)
 
 	 }
-	
+
+	 // function findSlot(data) {
+	 // }
 
 	renderCalendar();
 
