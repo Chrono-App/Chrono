@@ -92,7 +92,6 @@ user.post('/new', function(req, res) {
 				//collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
 			});
 
-
 			function updateCollection() {
 				collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
 			}

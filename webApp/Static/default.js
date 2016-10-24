@@ -61,6 +61,10 @@
 
 			addEventToView(event.model);
 
+			httpPost("user/event", { title: event.model.title, day: event.model.day, time: event.model.time, note: event.model.note }, function(res) {
+			alert(res);
+		});
+
 		}, null);
 
 		//2. call a function to changes the view
