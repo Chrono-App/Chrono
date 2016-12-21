@@ -77,24 +77,24 @@ user.post('/new', function(req, res) {
 				}
 			});
 
-			var events_collection = db.collection("events");
+			//var events_collection = db.collection("events");
 
 			//var userinfo = db.collection(req.body.username);
 			
-			events_collection.save({ user: req.body.username });
+			//events_collection.save({ user: req.body.username });
 
-			var userid;
+			//var userid;
 
-			events_collection.find().toArray(function(err, results) {
-				userid = (results[0]._id).toString();
-				console.log(userid);
-				updateCollection();
-				//collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
-			});
+			// events_collection.find().toArray(function(err, results) {
+			// 	userid = (results[0]._id).toString();
+			// 	console.log(userid);
+			// 	//updateCollection();
+			// 	collection.update({ username: req.body.username }, { $set : { user_id : userid } });
+			// });
 
-			function updateCollection() {
-				collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
-			}
+			// function updateCollection() {
+			// 	collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
+			// }
 
 			//collection.update({ username: req.body.username }, { $set : { user_id : userid } });
 			// 	// collection.insertMany([results[0]], function(err, result) {
@@ -148,15 +148,19 @@ user.post('/event', function(req, res) {
 		if (err != null) {
 			res.send('Cannot connect to MongoDB');
 		} else {
-			var collection = db.collection("events");
+			var collection = db.collection("users");
 
-			collection.insertMany([req.body], function(err, result) {
-				if (err) {
-					res.send("can't post event oh no");
-				} else {
-					res.send("posted request!");
-				}
-			});
+			collection.update({ username: "becca" }, { $set: { events: { title: req.body.title, day: req.body.day,
+			time: req.body.time, note: req.body.note } } });
+			// var x = document.cookie;
+
+			// collection.insertMany([req.body], function(err, result) {
+			// 	if (err) {
+			// 		res.send("can't post event oh no");
+			// 	} else {
+			// 		res.send("posted request!");
+			// 	}
+			// });
 		}
 	})
 })

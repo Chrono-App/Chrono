@@ -33,6 +33,7 @@
 		httpPost("/user", { username: user_input, password: password_input }, function(res) {
 			alert(res);
 			window.location = '/default.html';
+		    document.cookie = "username=" + user_input;
 		});
 	});
 
