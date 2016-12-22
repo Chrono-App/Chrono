@@ -1,31 +1,71 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+//var parseurl = require('parseurl');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var app = express();
 var user = express(); //sub app
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient;
+
+var mySession;
 
 app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+app.use(session({ secret: 'chrono', resave: false, saveUninitialized: true }));
 app.use(express.static(__dirname + '/Static'));
 app.use('/user', user);
-
-// user.post('/', function(req, res) {
-// 	console.log(req.body);
-// 	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
-// 		if (err != null) {
-// 			res.send('OH NO!');
-// 		} else {
-// 			var collection = db.collection('users');
-// 			collection.insertMany([req.body], function(err, result) {
-// 				if (err != null) {
-// 					res.send('OH NO!');
-// 				} else {
-// 					res.send("posted request");
-// 					db.close();
-// 				}
-// 			});
-// 		}
-// 	});
+// app.get('/', function(req, res) {
+// 	mySession = req.session;
+// 	if (sess.name) {
+// 		res.setHeader('Content-Type', 'text/html');
+// 		res.write('<p>Hello ' + sess.name + '</p>');
+// 		res.end();
+// 	} else {
+// 		sess.name = becca;
+// 		res.end('Welcome!');
+// 	}
+// 	res.send('Hello');
 // });
+
+// user.get('/new', function (req, res) {
+//   console.log("hello!");
+//   res.end();
+// });
+
+// app.get('/', function(req, res) {
+//   req.session.pageVisited = "homepage";
+//   res.send('Hello World Express');
+// });
+
+// app.get('/new', function(req, res) {
+
+//   if(req.session.pageVisited) {
+//     res.write('You visited our last page which was ' + req.session.pageVisited);
+//   }
+//   req.session.pageVisited = "new";
+//   res.end();
+// });
+
+// app.get('/event', function(req, res) {
+//   if(req.session.pageVisited) {
+//     res.write('You visited our last page which was ' + req.session.pageVisited);
+//   }
+//   req.session.pageVisited = "event";
+//   res.end();
+// });
+
+// user.get('/', function(req, res){
+//    if(req.session.page_views){
+//       req.session.page_views++;
+//       res.send("You visited this page " + req.session.page_views + " times");
+//    }else{
+//       req.session.page_views = 1;
+//       res.send("Welcome to this page for the first time!");
+//    }
+// });
+
 
 user.post('/', function(req, res) {
 	
@@ -37,15 +77,6 @@ user.post('/', function(req, res) {
 			var collection = db.collection('users');
 
 			console.log(req.body);
-
-			//if (collection.find( { username : req.body.username, password: req.body.password }).hasNext()) {
-			//	console.log(collection.find( { username : req.body.username, password: req.body.password }).hasNext().then(function(arg) {
-			//		conso
-			//	}));
-			//	res.send("found");
-			//} else {
-			//	res.send("not found");
-			//}
 
 			collection.find({ username: req.body.username, password: req.body.password }).hasNext().then(function(arg) {
 				if (arg) {
@@ -77,64 +108,6 @@ user.post('/new', function(req, res) {
 				}
 			});
 
-			//var events_collection = db.collection("events");
-
-			//var userinfo = db.collection(req.body.username);
-			
-			//events_collection.save({ user: req.body.username });
-
-			//var userid;
-
-			// events_collection.find().toArray(function(err, results) {
-			// 	userid = (results[0]._id).toString();
-			// 	console.log(userid);
-			// 	//updateCollection();
-			// 	collection.update({ username: req.body.username }, { $set : { user_id : userid } });
-			// });
-
-			// function updateCollection() {
-			// 	collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
-			// }
-
-			//collection.update({ username: req.body.username }, { $set : { user_id : userid } });
-			// 	// collection.insertMany([results[0]], function(err, result) {
-			// 	// 	console.log(results[0]);
-			// 	// });
-			//});
-
-			// userinfo.find().toArray(function(err, results) {
-			// 	var userid = results[0]._id;
-			// 	console.log(userid);
-
-			// 	console.log(collection);
-
-			// 	collection.update({ username: req.body.username }, { $set : { user_id : "hello" } });
-			// 	// collection.insertMany([results[0]], function(err, result) {
-			// 	// 	console.log(results[0]);
-			// 	// });
-			// });
-
-			//var print = userinfo.find( { user: { $eq: req.body.username } } );
-			//console.log(print);
-			//var userid = userinfo.user;
-
-			//console.log(userid);
-
-			// function(err, cb) {
-			// 	var userinfo = db.collection(req.body.username);
-			// 	userinfo.save({ user: req.body.username });
-			// }
-
-			//console.log(userinfo._id);
-
-			//collection.update({ username: req.body.username }, { $set : { user_id : "userid" } });
-
-			//console.log(userinfo._id);
-
-			//collection.insertMany([{ user_id: events_collection._id }]);
-
-			//console.log(userinfo._id);
-
 			// TODO: add some test here
 
 			db.close();
@@ -143,6 +116,21 @@ user.post('/new', function(req, res) {
 	});
 });
 
+function getCookie(cookie_name) {
+	var name = cookie_name + "=";
+	var cookie = document.cookie;
+	for (var i = 0; i < cookie.length; i++) {
+		var c = cookie[i];
+		// while (c.charAt(0) == ' ') {
+		// 	c = c.substring(1);
+		// }
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
 user.post('/event', function(req, res) {
 	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
 		if (err != null) {
@@ -150,7 +138,11 @@ user.post('/event', function(req, res) {
 		} else {
 			var collection = db.collection("users");
 
-			collection.update({ username: "becca" }, { $set: { events: { title: req.body.title, day: req.body.day,
+			// var session_id = document.cookie;
+			// console.log(session_id);
+			// var session_id = "becca";
+
+			collection.update({ username: session_id }, { $set: { events: { title: req.body.title, day: req.body.day,
 			time: req.body.time, note: req.body.note } } });
 			// var x = document.cookie;
 
@@ -161,6 +153,8 @@ user.post('/event', function(req, res) {
 			// 		res.send("posted request!");
 			// 	}
 			// });
+
+			db.close();
 		}
 	})
 })
