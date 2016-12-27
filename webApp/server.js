@@ -18,15 +18,14 @@ app.use(express.static(__dirname + '/Static'));
 app.use('/user', user);
 
 app.get("/", function(req, res){
-   // if(req.session.page_views){
-   //    req.session.page_views++;
-   //    res.send("You visited this page " + req.session.page_views + " times");
-   // }else{
-   //    req.session.page_views = 1;
-   //    console.log("Welcome to this page for the first time!");
-   //    res.end();
-   // }
-   console.log(app.mountpath);
+   if(req.session.views){
+      req.session.views++;
+      console.log("You visited this page " + req.session.views + " times");
+   }else{
+      req.session.views = 1;
+      console.log("Welcome to this page for the first time!");
+   }
+   //console.log(app.mountpath);
    res.sendFile(__dirname + '/Static/home.html');
   // res.end();
 });
