@@ -21,9 +21,11 @@ app.get("/", function(req, res){
    if(req.session.views){
       req.session.views++;
       console.log("You visited this page " + req.session.views + " times");
+      console.log(req.sessionID);
    }else{
       req.session.views = 1;
       console.log("Welcome to this page for the first time!");
+      console.log(req.sessionID);
    }
    //console.log(app.mountpath);
    res.sendFile(__dirname + '/Static/home.html');
