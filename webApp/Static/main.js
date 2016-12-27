@@ -1,19 +1,3 @@
-// (function() {
-// 	function httpGet(url, callback) {
-// 		var xmlHttp = new XMLHttpRequest();
-// 		xmlHttp.onreadystatechange = function() {
-// 			if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-// 				callback(xmlHttp.responseText);
-// 		};
-// 		xmlHttp.open("GET", url, true);
-// 		xmlHttp.send(null);
-// 	};
-
-// 	document.getElementById("login").addEventListener("click", function(e) {
-// 		httpGet()
-// 	})
-// })
-
 (function() {
 	function httpPost(url, payload, callback) {
 		var xmlHttp = new XMLHttpRequest();
@@ -47,8 +31,4 @@
 		calendar.appendChild(dayElem);
 	})
 	
-
-	// document.getElementById("newAccount").addEventListener("click", function(e) {
-
-	// })
 })();

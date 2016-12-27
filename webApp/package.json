@@ -1,0 +1,21 @@
+{
+  "name": "chrono",
+  "version": "1.0.0",
+  "description": "social calendar application",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Chrono"
+  },
+  "keywords": [
+    "calendar",
+    "schedule",
+    "node"
+  ],
+  "author": "Rebecca Qian",
+  "license": "MIT"
+}

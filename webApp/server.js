@@ -16,55 +16,20 @@ app.use(cookieParser());
 app.use(session({ secret: 'chrono', resave: false, saveUninitialized: true }));
 app.use(express.static(__dirname + '/Static'));
 app.use('/user', user);
-// app.get('/', function(req, res) {
-// 	mySession = req.session;
-// 	if (sess.name) {
-// 		res.setHeader('Content-Type', 'text/html');
-// 		res.write('<p>Hello ' + sess.name + '</p>');
-// 		res.end();
-// 	} else {
-// 		sess.name = becca;
-// 		res.end('Welcome!');
-// 	}
-// 	res.send('Hello');
-// });
 
-// user.get('/new', function (req, res) {
-//   console.log("hello!");
-//   res.end();
-// });
-
-// app.get('/', function(req, res) {
-//   req.session.pageVisited = "homepage";
-//   res.send('Hello World Express');
-// });
-
-// app.get('/new', function(req, res) {
-
-//   if(req.session.pageVisited) {
-//     res.write('You visited our last page which was ' + req.session.pageVisited);
-//   }
-//   req.session.pageVisited = "new";
-//   res.end();
-// });
-
-// app.get('/event', function(req, res) {
-//   if(req.session.pageVisited) {
-//     res.write('You visited our last page which was ' + req.session.pageVisited);
-//   }
-//   req.session.pageVisited = "event";
-//   res.end();
-// });
-
-// user.get('/', function(req, res){
-//    if(req.session.page_views){
-//       req.session.page_views++;
-//       res.send("You visited this page " + req.session.page_views + " times");
-//    }else{
-//       req.session.page_views = 1;
-//       res.send("Welcome to this page for the first time!");
-//    }
-// });
+app.get("/", function(req, res){
+   // if(req.session.page_views){
+   //    req.session.page_views++;
+   //    res.send("You visited this page " + req.session.page_views + " times");
+   // }else{
+   //    req.session.page_views = 1;
+   //    console.log("Welcome to this page for the first time!");
+   //    res.end();
+   // }
+   console.log(app.mountpath);
+   res.sendFile(__dirname + '/Static/home.html');
+  // res.end();
+});
 
 
 user.post('/', function(req, res) {
