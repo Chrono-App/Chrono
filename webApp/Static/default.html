@@ -15,18 +15,77 @@
     <script src='/Scripts/moment.min.js'></script>
     <script src='/Scripts/fullcalendar.js'></script>
     <script>
-      $(document).ready(function() {
+      // $(document).ready(function() {
+      //   $('#calendar').fullCalendar({
+      //     header: {
+      //       left: 'prev,next today',
+      //       center: 'title',
+      //       right: 'month,agendaWeek,agendaDay'
+      //     },
+      //     //editable: true,
+      //     //droppable: true,
+      //     selectable: true,
+      //     select: function(start, end, jsEvent, view) {
+      //       var title = prompt("enter a title", "New Event");
+      //       if (title != null) {
+      //         var event = {
+      //           title: title.trim() != "" ? title : "New Event",
+      //           start: start,
+      //           end: end
+      //         };
+      //         $calendar.fullCalendar("renderEvent", event, true);
+      //       };
+      //       $calendar.fullCalendar("unselect");
+      //     },
+      //     editable: true,
+      //     eventClick: function(event, jsEvent, view) {
+      //       var newTitle = prompt("edit your title", event.title);
+      //       if (newTitle != null) {
+      //         event.title = newTitle.trim() != "" ? newTitle : event.title;
+      //         $calendar.fullCalendar("updateEvent", event);
+      //       }
+      //     }
+      //   });
+      // });
 
-        $('#calendar').fullCalendar({
-  header: {
-   left: 'prev,next today',
-   center: 'title',
-   right: 'month,agendaWeek,agendaDay'
-  },
-  editable: true,
-  droppable: true
+      // Create calendar when document is ready
+$(document).ready(function() {
+ 
+ var $calendar = $("#calendar").fullCalendar({
+   header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },
+ 
+   selectable: true,
+   select: function(start, end, newEvent, view) {
+     var title = prompt("Enter a title for this event", "New event");
+ 
+     if (title) {
+      var event = {
+       title: title.trim() != "" ? title : "New event",
+       start: start,
+       end: end
+      };
+      $calendar.fullCalendar("renderEvent", event, true);
+     };
+     $calendar.fullCalendar("unselect");
+ 
+    },
+ 
+    editable : true,
+ 
+    eventClick: function(event, newEvent, view){
+     var newTitle = prompt("Enter a new title for this event", event.title);
+ 
+     if (newTitle) {
+          event.title = newTitle.trim() != "" ? newTitle : event.title;
+          $calendar.fullCalendar("updateEvent", event);
+        }
+    }
+  });
 });
-      });
 
     </script>
   </head>
