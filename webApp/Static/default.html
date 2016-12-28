@@ -11,44 +11,12 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <link rel='stylesheet' href='/Stylesheets/fullcalendar.css' />
-    <script src='/Scripts/jquery.min.js'></script>
+    <!-- <script src='/Scripts/jquery.min.js'></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src='/Scripts/moment.min.js'></script>
     <script src='/Scripts/fullcalendar.js'></script>
     <script>
-      // $(document).ready(function() {
-      //   $('#calendar').fullCalendar({
-      //     header: {
-      //       left: 'prev,next today',
-      //       center: 'title',
-      //       right: 'month,agendaWeek,agendaDay'
-      //     },
-      //     //editable: true,
-      //     //droppable: true,
-      //     selectable: true,
-      //     select: function(start, end, jsEvent, view) {
-      //       var title = prompt("enter a title", "New Event");
-      //       if (title != null) {
-      //         var event = {
-      //           title: title.trim() != "" ? title : "New Event",
-      //           start: start,
-      //           end: end
-      //         };
-      //         $calendar.fullCalendar("renderEvent", event, true);
-      //       };
-      //       $calendar.fullCalendar("unselect");
-      //     },
-      //     editable: true,
-      //     eventClick: function(event, jsEvent, view) {
-      //       var newTitle = prompt("edit your title", event.title);
-      //       if (newTitle != null) {
-      //         event.title = newTitle.trim() != "" ? newTitle : event.title;
-      //         $calendar.fullCalendar("updateEvent", event);
-      //       }
-      //     }
-      //   });
-      // });
-
-      // Create calendar when document is ready
+     
 $(document).ready(function() {
  
  var $calendar = $("#calendar").fullCalendar({
@@ -59,7 +27,7 @@ $(document).ready(function() {
           },
  
    selectable: true,
-   select: function(start, end, newEvent, view) {
+   select: function(start, end, jsEvent, view) {
      var title = prompt("Enter a title for this event", "New event");
  
      if (title) {
@@ -71,19 +39,37 @@ $(document).ready(function() {
       $calendar.fullCalendar("renderEvent", event, true);
      };
      $calendar.fullCalendar("unselect");
+
+    // $("#myModal").attr("aria-hidden", false);
  
     },
  
     editable : true,
  
-    eventClick: function(event, newEvent, view){
-     var newTitle = prompt("Enter a new title for this event", event.title);
+    // eventClick: function(event, jsEvent, view){
+    //  var newTitle = prompt("Enter a new title for this event", event.title);
  
-     if (newTitle) {
-          event.title = newTitle.trim() != "" ? newTitle : event.title;
-          $calendar.fullCalendar("updateEvent", event);
+    //  if (newTitle) {
+    //       event.title = newTitle.trim() != "" ? newTitle : event.title;
+    //       $calendar.fullCalendar("updateEvent", event);
+    //     }
+
+    //  // $("#eventTitle").html(event.title);
+    //  // $("#eventNote").html(event.description);
+    //  // $("#myModal").modal();
+    // }
+
+    eventClick:  function(event, jsEvent, view) {
+      console.log(event.title);
+       
+            $('#modalTitle').html(event.title);
+           // $('#modalBody').html(event.description);
+           // $('#eventUrl').attr('href',event.url);
+            $('#fullCalModal').modal();
+            return false;
         }
-    }
+
+
   });
 });
 
@@ -105,7 +91,7 @@ $(document).ready(function() {
 </button> -->
 
 
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -130,16 +116,32 @@ $(document).ready(function() {
         </div>
       </div>
       <br />
+    </div> -->
+
+
+<div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+            <!-- <div id="modalBody" class="modal-body"></div> -->
+           <!--  <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
+            </div> -->
+        </div>
     </div>
+</div>
 
        <div id="calendar">
         
       </div>
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-    <script src="../Bootstrap/JS/bootstrap.min.js"></script>
+    <script src="/Bootstrap/JS/bootstrap.min.js"></script>
     <!-- <script src="default.js"></script> -->
-    <script src="Views/events.js"></script>
-    <script src="Models/events.js"></script>
+    <!-- <script src="Views/events.js"></script> -->
+    <!-- <script src="Models/events.js"></script> -->
   </body>
 </html>
