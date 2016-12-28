@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Log In Page</title>
-    <link href="/Stylesheets/styles.css" rel="stylesheet"> <!-- commented out ../-->
+     <link href="/Stylesheets/styles.css" rel="stylesheet">
     <link href="/Bootstrap/CSS/bootstrap.min.css" rel="stylesheet"> <!-- commented out ../ -->
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -18,9 +18,16 @@
       $(document).ready(function() {
 
         $('#calendar').fullCalendar({
-
-        })
+  header: {
+   left: 'prev,next today',
+   center: 'title',
+   right: 'month,agendaWeek,agendaDay'
+  },
+  editable: true,
+  droppable: true
+});
       });
+
     </script>
   </head>
   <body>
@@ -32,11 +39,11 @@
       <!-- <button class="btn btn-primary"> > </button> -->
       <!-- <p id="week">Date</p> -->
 
-      <div id="event"></div>
-
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      <!-- <div id="event"></div>
+ -->
+      <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
   Create New Event
-</button>
+</button> -->
 
 
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -63,12 +70,12 @@
           </div>
         </div>
       </div>
-
-      <div id="calendar">
-        
-      </div>
       <br />
     </div>
+
+       <div id="calendar">
+        
+      </div>
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
     <script src="../Bootstrap/JS/bootstrap.min.js"></script>
