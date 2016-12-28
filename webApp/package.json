@@ -17,5 +17,8 @@
     "node"
   ],
   "author": "Rebecca Qian",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "fullcalendar": "^3.1.0"
+  }
 }

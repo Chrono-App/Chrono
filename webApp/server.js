@@ -9,12 +9,11 @@ var MongoClient = require('mongodb').MongoClient;
 
 var mySession;
 
+app.use(express.static(__dirname + '/Static'));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(cookieParser());
 app.use(session({ secret: 'chrono', resave: false, saveUninitialized: true }));
-app.use(express.static(__dirname + '/Static'));
 app.use('/user', user);
 
 app.get("/", function(req, res){
@@ -32,6 +31,11 @@ app.get("/", function(req, res){
   // res.end();
 });
 
+// user.get("/default.html", function(req, res) {
+// 	console.log("default");
+// 	res.end();
+// });
+
 
 user.post('/', function(req, res) {
 	
@@ -46,7 +50,15 @@ user.post('/', function(req, res) {
 
 			collection.find({ username: req.body.username, password: req.body.password }).hasNext().then(function(arg) {
 				if (arg) {
-					res.send("found");
+					req.session.regenerate(function(){
+						req.session.user = req.body.username;
+						req.session.success = 'authenticated';
+						console.log(req.session.user);
+						res.send("found");
+					});
+					//req.session.loggedIn = true;
+					//console.log(req.session.loggedIn);
+					
 				} else {
 					res.send("no!");
 				}
@@ -55,6 +67,19 @@ user.post('/', function(req, res) {
 		}
 	});
 });
+
+// user.post('/login', function(req, res) {
+// 	// pull information from database
+// 	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+// 		if (err) {
+// 			res.send('Issue connecting');
+// 		} else {
+// 			var collection = db.collection('users');
+
+// 			console.log(req.session.user);
+// 		}
+// 	// render calendar
+// })
 
 // post new username/password
 user.post('/new', function(req, res) {
