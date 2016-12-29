@@ -36,14 +36,15 @@ $(document).ready(function() {
             right: 'month,agendaWeek,agendaDay'
           },
  
-   selectable: true,
    select: function(start, end, jsEvent, view) {
 
    // $('#eventTitle').html("new event");
            // $('#modalBody').html(event.description);
            // $('#eventUrl').attr('href',event.url);
      $('#myModal').modal("show");
-     $('#create_event').click(function() {
+     //$('#myModal').on('shown.bs.modal', function() {
+       $('#create_event').click(function() {
+        console.log("creating event");
 
         //$('#close').click(function() {
           var title = document.getElementById("eventTitle").value;
@@ -53,8 +54,8 @@ $(document).ready(function() {
          var startTime = $('#datetimepicker1').data("DateTimePicker").date();
          var endTime = $('#datetimepicker2').data("DateTimePicker").date();
        
-          console.log(startTime);
-          console.log(endTime);
+         // console.log(startTime);
+         // console.log(endTime);
          // console.log(allDay);
 
           var event = {
@@ -64,16 +65,21 @@ $(document).ready(function() {
            end: endTime
           };
 
+          console.log(event);
+
           document.getElementById("eventTitle").value = " ";
           document.getElementById("allDay").checked = false;
+          //$('#datetimepicker1').data("DateTimePicker").useCurrent();
+          //$('#datetimepicker2').data("DateTimePicker").useCurrent();
 
           $('#calendar').fullCalendar("renderEvent", event, true);
-          $('#calendar').fullCalendar("unselect");
+        $('#calendar').fullCalendar("unselect");
 
           return false;
         //})
 
-     })
+       });
+     //});
 
      //var title = prompt("Enter a title for this event", "New event");
  
@@ -89,8 +95,9 @@ $(document).ready(function() {
     // $("#myModal").attr("aria-hidden", false);
  
     },
- 
-    editable : true,
+
+    selectable: false,
+    editable : false,
  
     // eventClick: function(event, jsEvent, view){
     //  var newTitle = prompt("Enter a new title for this event", event.title);
@@ -107,15 +114,22 @@ $(document).ready(function() {
 
     eventClick:  function(event, jsEvent, view) {
       //console.log(event.title);
-       
-            //$('#eventTitle').html(event.title);
+          
+           // $('#eventTitle').html(event.title);
            // $('#modalBody').html(event.description);
            // $('#eventUrl').attr('href',event.url);
-            $('#myModal').modal();
+      $('#myModal').modal();
+      $('#create_event').click(function() {
+        event.title = document.getElementById("eventTitle").value;
+        event.allDay = document.getElementById("allDay").checked;
+        event.start = $('#datetimepicker1').data("DateTimePicker").date();
+        event.end = $('#datetimepicker2').data("DateTimePicker").date();
+       
+        $('#calendar').fullCalendar('updateEvent', event);
+        $('#calendar').fullCalendar("unselect");
             return false;
-        }
-
-
+        });
+    }
   });
 });
 
@@ -130,8 +144,56 @@ $(document).ready(function() {
       <!-- <button class="btn btn-primary"> > </button> -->
       <!-- <p id="week">Date</p> -->
 
-      <!-- <div id="event"></div>
- -->
+      <button class="btn btn-primary" id="new_event">New Event</button>
+      <script type="text/javascript">
+        //console.log("creating event");
+
+        $('#new_event').click(function() {
+          $('#myModal').modal();
+          $('body').on("click", "#close", function(e) {
+            e.preventDefault();
+           // alert("button clicked");
+             var title = document.getElementById("eventTitle").value;
+          var allDay = document.getElementById("allDay").checked;
+          //var startTime = moment(document.getElementById("startTime").value);
+         // var endTime = moment(document.getElementById("endTime").value);
+         var startTime = $('#datetimepicker1').data("DateTimePicker").date();
+         var endTime = $('#datetimepicker2').data("DateTimePicker").date();
+       
+         // console.log(startTime);
+         // console.log(endTime);
+         // console.log(allDay);
+
+          var event = {
+           title: title.trim() != "" ? title : "New event",
+           allDay: allDay,
+           start: startTime,
+           end: endTime
+          };
+
+          console.log(event);
+
+          //document.getElementById("eventTitle").value = " ";
+          //document.getElementById("allDay").checked = false;
+          //$('#datetimepicker1').data("DateTimePicker").useCurrent();
+          //$('#datetimepicker2').data("DateTimePicker").useCurrent();
+
+          $('#calendar').fullCalendar("renderEvent", event, true);
+        $('#calendar').fullCalendar("unselect");
+        $('body').off("click", "#close", function() {
+          alert("unbound");
+        });
+
+          return false;
+          });
+         
+        //})
+
+        return false;
+
+       });
+      </script>
+
       <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
   Create New Event
 </button> -->
