@@ -38,124 +38,13 @@ $(document).ready(function() {
  
    select: function(start, end, jsEvent, view) {
 
-   // $('#eventTitle').html("new event");
-           // $('#modalBody').html(event.description);
-           // $('#eventUrl').attr('href',event.url);
-     $('#myModal').modal("show");
-     //$('#myModal').on('shown.bs.modal', function() {
-       $('#create_event').click(function() {
-        console.log("creating event");
-
-        //$('#close').click(function() {
-          var title = document.getElementById("eventTitle").value;
-          var allDay = document.getElementById("allDay").checked;
-          //var startTime = moment(document.getElementById("startTime").value);
-         // var endTime = moment(document.getElementById("endTime").value);
-         var startTime = $('#datetimepicker1').data("DateTimePicker").date();
-         var endTime = $('#datetimepicker2').data("DateTimePicker").date();
-       
-         // console.log(startTime);
-         // console.log(endTime);
-         // console.log(allDay);
-
-          var event = {
-           title: title.trim() != "" ? title : "New event",
-           allDay: allDay,
-           start: startTime,
-           end: endTime
-          };
-
-          console.log(event);
-
-          document.getElementById("eventTitle").value = " ";
-          document.getElementById("allDay").checked = false;
-          //$('#datetimepicker1').data("DateTimePicker").useCurrent();
-          //$('#datetimepicker2').data("DateTimePicker").useCurrent();
-
-          $('#calendar').fullCalendar("renderEvent", event, true);
-        $('#calendar').fullCalendar("unselect");
-
-          return false;
-        //})
-
-       });
-     //});
-
-     //var title = prompt("Enter a title for this event", "New event");
- 
-     // if (title) {
-     //  var event = {
-     //   title: title.trim() != "" ? title : "New event",
-     //   start: start,
-     //   end: end
-     //  };
-      
-    // };
-  
-    // $("#myModal").attr("aria-hidden", false);
- 
-    },
-
-    selectable: false,
-    editable : false,
- 
-    // eventClick: function(event, jsEvent, view){
-    //  var newTitle = prompt("Enter a new title for this event", event.title);
- 
-    //  if (newTitle) {
-    //       event.title = newTitle.trim() != "" ? newTitle : event.title;
-    //       $calendar.fullCalendar("updateEvent", event);
-    //     }
-
-    //  // $("#eventTitle").html(event.title);
-    //  // $("#eventNote").html(event.description);
-    //  // $("#myModal").modal();
-    // }
-
-    eventClick:  function(event, jsEvent, view) {
-      //console.log(event.title);
-          
-           // $('#eventTitle').html(event.title);
-           // $('#modalBody').html(event.description);
-           // $('#eventUrl').attr('href',event.url);
-      $('#myModal').modal();
-      $('#create_event').click(function() {
-        event.title = document.getElementById("eventTitle").value;
-        event.allDay = document.getElementById("allDay").checked;
-        event.start = $('#datetimepicker1').data("DateTimePicker").date();
-        event.end = $('#datetimepicker2').data("DateTimePicker").date();
-       
-        $('#calendar').fullCalendar('updateEvent', event);
-        $('#calendar').fullCalendar("unselect");
-            return false;
-        });
-    }
-  });
-});
-
-    </script>
-  </head>
-  <body>
-    <h1 class="text-center">You're Logged In!</h1>
-    <!-- <div id='calendar'></div> -->
-    <div class="calendarView">
-      <!-- <button class="btn btn-primary"> Today </button> -->
-      <!-- <button class="btn btn-primary"> < </button> -->
-      <!-- <button class="btn btn-primary"> > </button> -->
-      <!-- <p id="week">Date</p> -->
-
-      <button class="btn btn-primary" id="new_event">New Event</button>
-      <script type="text/javascript">
-        //console.log("creating event");
-
-        $('#new_event').click(function() {
           $('#myModal').modal();
           $('body').on("click", "#create_event", function(e) {
             e.preventDefault();
             e.stopImmediatePropagation();
            // alert("button clicked");
              var title = document.getElementById("eventTitle").value;
-          var allDay = document.getElementById("allDay").checked;
+             var allDay = document.getElementById("allDay").checked;
           //var startTime = moment(document.getElementById("startTime").value);
          // var endTime = moment(document.getElementById("endTime").value);
          var startTime = $('#datetimepicker1').data("DateTimePicker").date();
@@ -184,6 +73,103 @@ $(document).ready(function() {
 
           return false;
           });
+
+        return false;
+    },
+
+    selectable: true,
+    editable : true,
+ 
+    // eventClick: function(event, jsEvent, view){
+    //  var newTitle = prompt("Enter a new title for this event", event.title);
+ 
+    //  if (newTitle) {
+    //       event.title = newTitle.trim() != "" ? newTitle : event.title;
+    //       $calendar.fullCalendar("updateEvent", event);
+    //     }
+
+    //  // $("#eventTitle").html(event.title);
+    //  // $("#eventNote").html(event.description);
+    //  // $("#myModal").modal();
+    // }
+
+    eventClick:  function(event, jsEvent, view) {
+      //console.log(event.title);
+          
+           // $('#eventTitle').html(event.title);
+           // $('#modalBody').html(event.description);
+           // $('#eventUrl').attr('href',event.url);
+      $('#myModal').modal();
+      $('#myModal').on('shown.bs.modal', function() {
+          $('#create_event').click(function() {
+            event.title = document.getElementById("eventTitle").value;
+            event.allDay = document.getElementById("allDay").checked;
+            event.start = $('#datetimepicker1').data("DateTimePicker").date();
+            event.end = $('#datetimepicker2').data("DateTimePicker").date();
+
+          $('#calendar').fullCalendar('updateEvent', event);
+          $('#calendar').fullCalendar("unselect");
+          return false;
+        });
+
+      
+        $('#delete_event').click(function() {
+          $('#calendar').fullCalendar('removeEvents', event._id);
+        });
+
+      });
+    }
+  });
+});
+
+    </script>
+  </head>
+  <body>
+    <h1 class="text-center">You're Logged In!</h1>
+    <!-- <div id='calendar'></div> -->
+    <div class="calendarView">
+      <!-- <button class="btn btn-primary"> Today </button> -->
+      <!-- <button class="btn btn-primary"> < </button> -->
+      <!-- <button class="btn btn-primary"> > </button> -->
+      <!-- <p id="week">Date</p> -->
+
+      <button class="btn btn-primary" id="new_event">New Event</button>
+      <script type="text/javascript">
+        //console.log("creating event");
+
+        $('#new_event').click(function() {
+          $('#myModal').modal();
+          $('body').on("click", "#create_event", function(e) {
+           // e.preventDefault();
+            e.stopImmediatePropagation();
+            var title = document.getElementById("eventTitle").value;
+            var allDay = document.getElementById("allDay").checked;
+            var startTime = $('#datetimepicker1').data("DateTimePicker").date();
+            var endTime = $('#datetimepicker2').data("DateTimePicker").date();
+       
+         // console.log(startTime);
+         // console.log(endTime);
+         // console.log(allDay);
+
+            var event = {
+             title: title.trim() != "" ? title : "New event",
+             allDay: allDay,
+             start: startTime,
+             end: endTime
+            };
+
+          console.log(event);
+
+          document.getElementById("eventTitle").value = " ";
+          document.getElementById("allDay").checked = false;
+          $('#datetimepicker1').data("DateTimePicker").useCurrent();
+          $('#datetimepicker2').data("DateTimePicker").useCurrent();
+
+          $('#calendar').fullCalendar("renderEvent", event, true);
+          $('#calendar').fullCalendar("unselect");
+
+          return false;
+          });
          
         //})
 
@@ -191,11 +177,11 @@ $(document).ready(function() {
 
        });
 
-         $('body').on('click', '#close', function() {
-            $('body').off("click", "#create_event", function() {
-             alert("unbound");
-            });
-          });
+         // $('body').on('click', '#close', function() {
+         //    $('body').off("click", "#create_event", function() {
+         //     alert("unbound");
+         //    });
+         //  });
 
       </script>
 
@@ -217,9 +203,6 @@ $(document).ready(function() {
               <form>
                 Title: <input id="eventTitle" type="text" name="Title"><br />
                 All-Day: <input id="allDay" type="checkbox"><br />
-                <!-- Day: <input id="eventDay" type="text" name="Day"><br /> -->
-                <!-- From: <input id="startTime" type="time" name="start"><br />
-                To: <input id="endTime" type="time" name="end"><br /> -->
               </form>
               <p> Start Time: </p>
                <div class="container">
@@ -271,6 +254,7 @@ $(document).ready(function() {
             <div class="modal-footer">
               <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button id="create_event" type="button" class="btn btn-primary">Save changes</button>
+               <button id="delete_event" type="button" class="btn btn-primary">Delete</button>
             </div>
           </div>
         </div>
