@@ -150,8 +150,9 @@ $(document).ready(function() {
 
         $('#new_event').click(function() {
           $('#myModal').modal();
-          $('body').on("click", "#close", function(e) {
+          $('body').on("click", "#create_event", function(e) {
             e.preventDefault();
+            e.stopImmediatePropagation();
            // alert("button clicked");
              var title = document.getElementById("eventTitle").value;
           var allDay = document.getElementById("allDay").checked;
@@ -179,10 +180,7 @@ $(document).ready(function() {
           //$('#datetimepicker2').data("DateTimePicker").useCurrent();
 
           $('#calendar').fullCalendar("renderEvent", event, true);
-        $('#calendar').fullCalendar("unselect");
-        $('body').off("click", "#close", function() {
-          alert("unbound");
-        });
+          $('#calendar').fullCalendar("unselect");
 
           return false;
           });
@@ -192,6 +190,13 @@ $(document).ready(function() {
         return false;
 
        });
+
+         $('body').on('click', '#close', function() {
+            $('body').off("click", "#create_event", function() {
+             alert("unbound");
+            });
+          });
+
       </script>
 
       <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
