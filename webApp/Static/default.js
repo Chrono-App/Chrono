@@ -45,20 +45,20 @@
 	// 	}
 	// }
 
-	// document.getElementById("create_event").addEventListener("click", function() {
-	// 	//1. send dummy data to database
-	// 	var event = new Chrono.eventsview();
-	// 	event.model.fetch(function() {
-	// 		//console.log(event.model.title);
-	// 		//console.log(event.model.note);
+	document.getElementById("create_event").addEventListener("click", function() {
+		//1. send dummy data to database
+		var event = new Chrono.eventsview();
+		event.model.fetch(function() {
+			//console.log(event.model.title);
+			//console.log(event.model.note);
 
-	// 		addEventToView(event.model);
+			addEventToView(event.model);
 
-	// 		httpPost("user/event", { title: event.model.title, day: event.model.day, time: event.model.time, note: event.model.note }, function(res) {
-	// 		alert(res);
-	// 	});
+			httpPost("user/event", { title: event.model.title, day: event.model.day, time: event.model.time, note: event.model.note }, function(res) {
+			alert(res);
+		});
 
-	// 	}, null);
+		}, null);
 
 	// 	//2. call a function to changes the view
 	// 	//event.render();

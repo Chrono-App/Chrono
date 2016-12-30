@@ -129,12 +129,12 @@ user.post('/event', function(req, res) {
 		} else {
 			var collection = db.collection("users");
 
-			// var session_id = document.cookie;
-			// console.log(session_id);
-			// var session_id = "becca";
+			var session_id = req.session.user;
+			console.log(session_id);
+			//var session_id = "becca";
 
-			collection.update({ username: session_id }, { $set: { events: { title: req.body.title, day: req.body.day,
-			time: req.body.time, note: req.body.note } } });
+			collection.update({ username: req.session.user }, { $set: { events: { title: req.body.title, allDay: req.body.allDay, start: req.body.start,
+			end: req.body.end } } });
 			// var x = document.cookie;
 
 			// collection.insertMany([req.body], function(err, result) {

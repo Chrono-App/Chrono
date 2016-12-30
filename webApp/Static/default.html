@@ -28,6 +28,17 @@
     <script>
      
 $(document).ready(function() {
+
+function httpPost(url, payload, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        callback(xmlHttp.responseText);
+    };
+    xmlHttp.open("POST", url, true);
+    xmlHttp.setRequestHeader("Content-Type", "application/json");
+    xmlHttp.send(JSON.stringify(payload));
+  };
  
  var $calendar = $("#calendar").fullCalendar({
    header: {
@@ -75,6 +86,16 @@ $(document).ready(function() {
           });
 
         return false;
+    },
+
+    eventAfterRender: function(event, element, view) {
+      //element.append(event.title);
+      //var title = event.title;
+      //var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
+
+      httpPost("user/event", { title: event.title, allDay: event.allDay, start: event.start.format("YYYY-MM-DD[T]HH:MM:SS"), end: event.end.format("YYYY-MM-DD[T]HH:MM:SS") }, function(res) {
+        alert(res);
+      });
     },
 
     selectable: true,
@@ -126,16 +147,10 @@ $(document).ready(function() {
   </head>
   <body>
     <h1 class="text-center">You're Logged In!</h1>
-    <!-- <div id='calendar'></div> -->
     <div class="calendarView">
-      <!-- <button class="btn btn-primary"> Today </button> -->
-      <!-- <button class="btn btn-primary"> < </button> -->
-      <!-- <button class="btn btn-primary"> > </button> -->
-      <!-- <p id="week">Date</p> -->
 
       <button class="btn btn-primary" id="new_event">New Event</button>
       <script type="text/javascript">
-        //console.log("creating event");
 
         $('#new_event').click(function() {
           $('#myModal').modal();
@@ -146,10 +161,6 @@ $(document).ready(function() {
             var allDay = document.getElementById("allDay").checked;
             var startTime = $('#datetimepicker1').data("DateTimePicker").date();
             var endTime = $('#datetimepicker2').data("DateTimePicker").date();
-       
-         // console.log(startTime);
-         // console.log(endTime);
-         // console.log(allDay);
 
             var event = {
              title: title.trim() != "" ? title : "New event",
@@ -170,8 +181,6 @@ $(document).ready(function() {
 
           return false;
           });
-         
-        //})
 
         return false;
 
@@ -184,11 +193,6 @@ $(document).ready(function() {
          //  });
 
       </script>
-
-      <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Create New Event
-</button> -->
-
 
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
         <div class="modal-dialog" role="document">
@@ -261,23 +265,6 @@ $(document).ready(function() {
       </div>
       <br />
     </div>
-
-
-<!-- div id="fullCalModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-                <h4 id="modalTitle" class="modal-title"></h4>
-            </div>
-           <div id="modalBody" class="modal-body"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
-            </div>
-        </div>
-    </div>
-</div> -->
 
        <div id="calendar">
         
