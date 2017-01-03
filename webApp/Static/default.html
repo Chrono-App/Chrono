@@ -60,10 +60,6 @@ function httpPost(url, payload, callback) {
          // var endTime = moment(document.getElementById("endTime").value);
          var startTime = $('#datetimepicker1').data("DateTimePicker").date();
          var endTime = $('#datetimepicker2').data("DateTimePicker").date();
-       
-         // console.log(startTime);
-         // console.log(endTime);
-         // console.log(allDay);
 
           var event = {
            title: title.trim() != "" ? title : "New event",
@@ -89,10 +85,6 @@ function httpPost(url, payload, callback) {
     },
 
     eventAfterRender: function(event, element, view) {
-      //element.append(event.title);
-      //var title = event.title;
-      //var start = event.start.format("YYYY-MM-DD[T]HH:MM:SS");
-
       httpPost("user/event", { title: event.title, allDay: event.allDay, start: event.start.format("YYYY-MM-DD[T]HH:MM:SS"), end: event.end.format("YYYY-MM-DD[T]HH:MM:SS") }, function(res) {
         alert(res);
       });
@@ -115,8 +107,6 @@ function httpPost(url, payload, callback) {
     // }
 
     eventClick:  function(event, jsEvent, view) {
-      //console.log(event.title);
-          
            // $('#eventTitle').html(event.title);
            // $('#modalBody').html(event.description);
            // $('#eventUrl').attr('href',event.url);
@@ -136,6 +126,9 @@ function httpPost(url, payload, callback) {
       
         $('#delete_event').click(function() {
           $('#calendar').fullCalendar('removeEvents', event._id);
+          httpPost("user/delete", { id: event._id }, function(res) {
+             alert(res);
+            });
         });
 
       });

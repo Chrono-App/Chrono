@@ -129,14 +129,11 @@ user.post('/event', function(req, res) {
 		} else {
 			var collection = db.collection("users");
 
-			var session_id = req.session.user;
-			console.log(session_id);
-			//var session_id = "becca";
+			// collection.update({ username: req.session.user }, { $set: { events[req.body.title]: { title: req.body.title, allDay: req.body.allDay, start: req.body.start,
+			// end: req.body.end } } });
 
-			collection.update({ username: req.session.user }, { $set: { events: { title: req.body.title, allDay: req.body.allDay, start: req.body.start,
-			end: req.body.end } } });
-			// var x = document.cookie;
-
+			// TODO: throw error if can't update collection
+			
 			// collection.insertMany([req.body], function(err, result) {
 			// 	if (err) {
 			// 		res.send("can't post event oh no");
@@ -145,6 +142,20 @@ user.post('/event', function(req, res) {
 			// 	}
 			// });
 
+			db.close();
+		}
+	})
+})
+
+user.delete('/event', function(req, res) {
+	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+	    if (err != null) {
+			res.send('Cannot connect to MongoDB');
+		} else {
+			var collection = db.collection("users");
+
+			//collection.update({ username: req.session.user }, { $set: { events[req.body._id]: {}}});
+	
 			db.close();
 		}
 	})
