@@ -28,7 +28,7 @@ app.get("/", function(req, res){
    }
    //console.log(app.mountpath);
    res.sendFile(__dirname + '/Static/home.html');
-  // res.end();
+   //res.end();
 });
 
 // user.get("/default.html", function(req, res) {
