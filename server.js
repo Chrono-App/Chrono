@@ -88,7 +88,7 @@ user.post('/', function(req, res) {
 
 // post new username/password
 user.post('/new', function(req, res) {
-	MongoClient.connect('mongodb://heroku_g3zbtdtr:na9lc8916hitvpsn9mpd5555d9@ds031882.mlab.com:31882/heroku_g3zbtdtr', function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if (err != null) {
 			res.send('Issue connecting');
 		} else {
@@ -128,7 +128,7 @@ function getCookie(cookie_name) {
 }
 
 user.post('/event', function(req, res) {
-	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if (err != null) {
 			res.send('Cannot connect to MongoDB');
 		} else {
@@ -153,7 +153,7 @@ user.post('/event', function(req, res) {
 })
 
 user.delete('/event', function(req, res) {
-	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 	    if (err != null) {
 			res.send('Cannot connect to MongoDB');
 		} else {
