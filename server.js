@@ -5,7 +5,10 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
 var user = express(); //sub app
+//var mongodb = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
+
+var uri = 'mongodb://heroku_g3zbtdtr:na9lc8916hitvpsn9mpd5555d9@ds031882.mlab.com:31882/heroku_g3zbtdtr';
 
 var mySession;
 
@@ -42,7 +45,7 @@ app.get("/", function(req, res){
 user.post('/', function(req, res) {
 	
 //console.log(req.body);
-	MongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+	MongoClient.connect(uri, function(err, db) {
 		if (err != null) {
 			res.send('OH NO!');
 		} else {
