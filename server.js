@@ -131,23 +131,14 @@ user.post('/event', function(req, res) {
 
 			collection.update(
 				{ username: req.session.user },
-				{ $push: { events: "csil" } }
+				{ $push: { events: { 'title' : req.body.title,
+				                     'allDay' : req.body.allDay,
+				                     'start' : req.body.start,
+			                         'end' : req.body.end
+				 } } }
 			)
 
-			// collection.update({ username: req.session.user }, { $set: { events[req.body.title]: { title: req.body.title, allDay: req.body.allDay, start: req.body.start,
-			// end: req.body.end } } });
-
-			//alert("event added!");
-
 			// TODO: throw error if can't update collection
-			
-			// collection.insertMany([req.body], function(err, result) {
-			// 	if (err) {
-			// 		res.send("can't post event oh no");
-			// 	} else {
-			// 		res.send("posted request!");
-			// 	}
-			// });
 
 			db.close();
 		}
