@@ -1,11 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-//var parseurl = require('parseurl');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
 var user = express(); //sub app
-//var mongodb = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 
 var uri = 'mongodb://heroku_g3zbtdtr:na9lc8916hitvpsn9mpd5555d9@ds031882.mlab.com:31882/heroku_g3zbtdtr';
@@ -16,7 +14,6 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/Static'));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret: 'chrono', resave: false, saveUninitialized: true }));
 app.use('/user', user);
@@ -33,14 +30,7 @@ app.get("/", function(req, res){
    }
    //console.log(app.mountpath);
    res.sendFile(__dirname + '/Static/home.html');
-   //res.end();
 });
-
-// user.get("/default.html", function(req, res) {
-// 	console.log("default");
-// 	res.end();
-// });
-
 
 user.post('/', function(req, res) {
 	
@@ -93,10 +83,13 @@ user.post('/new', function(req, res) {
 			res.send('Issue connecting');
 		} else {
 			var collection = db.collection('users');
+            var userInfo = req.body;
 
-			console.log(req.body);
+            userInfo.events = [];
 
-			collection.insertMany([req.body], function(err, result) {
+            console.log(userInfo);
+
+			collection.insertMany([userInfo], function(err, result) {
 				if (err) {
 					res.send("Nooooo");
 				} else {
@@ -132,10 +125,19 @@ user.post('/event', function(req, res) {
 		if (err != null) {
 			res.send('Cannot connect to MongoDB');
 		} else {
-			var collection = db.collection("users");
+			var collection = db.collection("users");	
+
+			debugger;
+
+			collection.update(
+				{ username: req.session.user },
+				{ $push: { events: "csil" } }
+			)
 
 			// collection.update({ username: req.session.user }, { $set: { events[req.body.title]: { title: req.body.title, allDay: req.body.allDay, start: req.body.start,
 			// end: req.body.end } } });
+
+			//alert("event added!");
 
 			// TODO: throw error if can't update collection
 			
