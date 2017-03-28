@@ -120,6 +120,7 @@ function getCookie(cookie_name) {
 	return "";
 }
 
+// Add new event to db
 user.post('/event', function(req, res) {
 	MongoClient.connect(uri, function(err, db) {
 		if (err != null) {
@@ -131,7 +132,8 @@ user.post('/event', function(req, res) {
 
 			collection.update(
 				{ username: req.session.user },
-				{ $push: { events: { 'title' : req.body.title,
+				{ $push: { events: { 'ID' : req.body.ID,
+					                 'title' : req.body.title,
 				                     'allDay' : req.body.allDay,
 				                     'start' : req.body.start,
 			                         'end' : req.body.end
@@ -145,15 +147,21 @@ user.post('/event', function(req, res) {
 	})
 })
 
-user.delete('/event', function(req, res) {
+// Delete existing event from db
+user.post('/delete', function(req, res) {
 	MongoClient.connect(uri, function(err, db) {
 	    if (err != null) {
 			res.send('Cannot connect to MongoDB');
 		} else {
 			var collection = db.collection("users");
 
-			//collection.update({ username: req.session.user }, { $set: { events[req.body._id]: {}}});
-	
+			debugger;
+
+			collection.update(
+				{ username: req.session.user },
+				{ $pull: { events: { 'ID' : req.body.ID } } }
+			)
+		
 			db.close();
 		}
 	})

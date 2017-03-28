@@ -68,7 +68,7 @@ function httpPost(url, payload, callback) {
     },
 
     eventAfterRender: function(event, element, view) {
-      httpPost("user/event", { title: event.title, allDay: event.allDay, start: event.start.format("YYYY-MM-DD[T]HH:MM:SS"), end: event.end.format("YYYY-MM-DD[T]HH:MM:SS") }, function(res) {
+      httpPost("user/event", { ID: event._id, title: event.title, allDay: event.allDay, start: event.start.format("YYYY-MM-DD[T]HH:MM:SS"), end: event.end.format("YYYY-MM-DD[T]HH:MM:SS") }, function(res) {
         alert(res);
       });
     },
@@ -103,10 +103,10 @@ function httpPost(url, payload, callback) {
           return false;
         });
 
-      
+        // Delete from db
         $('#delete_event').click(function() {
           $('#calendar').fullCalendar('removeEvents', event._id);
-          httpPost("user/delete", { id: event._id }, function(res) {
+          httpPost("user/delete", { ID: event._id }, function(res) {
              alert(res);
             });
         });
